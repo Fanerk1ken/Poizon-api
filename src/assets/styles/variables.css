@@ -1,0 +1,10 @@
+:root {
+    --bg-color: #323437;
+    --text-color: #646669;
+    --settings-bar: #2c2e31;
+    --selected-setting: #deb937;
+    --incorrect-character: #c15056;
+    --correct-character: #d1d0c6;
+    --out-length-character: #783034;
+    --a-hover: #c8c7bd;
+}
