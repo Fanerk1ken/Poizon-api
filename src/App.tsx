@@ -1,11 +1,15 @@
 import './App.css'
+import CurrentText from "./components/current-text/current-text.tsx";
+import {Provider} from "react-redux";
+import {store} from "./app/store.ts";
+import React from "react";
 
-function App() {
+const App: React.FC = () => {
 
   return (
-   <div>
-     <a href="">awdawdwa</a>
-   </div>
+   <Provider store={store}>
+       <CurrentText/>
+   </Provider>
   )
 }
 
