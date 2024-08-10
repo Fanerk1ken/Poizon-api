@@ -1,0 +1,23 @@
+.timeSelectorContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.timeButton {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444;
+  }
+
+  &.selected {
+    background-color: #deb937;
+    color: #000;
+  }
+}
