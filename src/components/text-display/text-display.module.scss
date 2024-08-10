@@ -1,0 +1,27 @@
+.textStyle {
+  .correct {
+    color: var(--correct-character);
+  }
+
+  .incorrect {
+    color: var(--incorrect-character);
+  }
+
+  .current {
+    position: relative;
+
+    &::after {
+      content: '|';
+      color: var(--selected-setting);
+      position: absolute;
+      animation: blink 1s infinite;
+      left: -50%;
+    }
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
