@@ -10,11 +10,10 @@ const FocusOverlay: React.FC<FocusOverlayProps> = ({ isFocused, onFocus }) => {
 
 
     useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
+        const handleKeyDown = () => {
             if (!isFocused) {
                 onFocus();
             }
-            console.log(event)
         };
 
         window.addEventListener('keydown', handleKeyDown);
