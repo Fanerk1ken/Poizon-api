@@ -1,28 +1,20 @@
-.timeSelectorContainer {
+.timeSelector {
   display: flex;
-  justify-content: center;
-  background-color: #2c2e31;
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  width: 200px;
+  gap: 0.5rem;
 }
 
 .timeOption {
   background: none;
   border: none;
-  color: #646669;
-  font-size: 0.9rem;
-  padding: 5px 10px;
-  margin: 0 5px;
+  color: var(--text-color);
   cursor: pointer;
-  transition: color 0.3s;
-
-  &:hover {
-    color: #d1d0c5;
-  }
+  padding: 0.5rem;
 
   &.active {
-    color: #e2b714;
+    color: var(--selected-setting);
+  }
+
+  &:hover {
+    color: var(--correct-character);
   }
 }

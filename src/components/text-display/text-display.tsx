@@ -11,6 +11,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({ currentText, typedChars, curr
     const [visibleLines, setVisibleLines] = useState<string[]>([]);
     const [startIndex, setStartIndex] = useState(0);
 
+    // Разделение текста на строки по 60 символов в каждой
     const processText = useCallback(() => {
         const lines: string[] = [];
         let currentLine = '';
@@ -30,12 +31,14 @@ const TextDisplay: React.FC<TextDisplayProps> = ({ currentText, typedChars, curr
         return lines;
     }, [currentText]);
 
+    // Инициализация видимых линий
     useEffect(() => {
         const allLines = processText();
         setVisibleLines(allLines.slice(0, 3));
         setStartIndex(0);
     }, [currentText, processText]);
 
+    // Обновление видимых линий по мере ввода пользователем текста
     useEffect(() => {
         const allLines = processText();
         const currentLineIndex = Math.floor(currentIndex / 60);
@@ -46,6 +49,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({ currentText, typedChars, curr
         }
     }, [currentIndex, processText, startIndex]);
 
+    // Отрисовка символов с соответствующей стилизацией
     const renderChar = (char: string, lineIndex: number, charIndex: number) => {
         const globalIndex = startIndex * 60 + lineIndex * 60 + charIndex;
         let className = styles.character;

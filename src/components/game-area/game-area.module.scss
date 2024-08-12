@@ -1,5 +1,10 @@
-.textDisplay {
-  width: 100%;
+.gameArea {
+  max-width: 1000px;
+  background-color: var(--settings-bar);
+  padding: 2rem;
+  border-radius: 5px;
   display: flex;
-  justify-content: center
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }

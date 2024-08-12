@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef, useImperativeHandle, useEffect } from "react";
 import TextDisplay from "../text-display";
 import InputHandler from "../input-handler";
 import { InputHandlerHandle } from "../../types/input-handler";
@@ -24,25 +24,47 @@ interface GameAreaProps {
     addError: () => void;
 }
 
-const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
-                                                                    currentText,
-                                                                    currentIndex,
-                                                                    typedChars,
-                                                                    setTypedChars,
-                                                                    extraChars,
-                                                                    setExtraChars,
-                                                                    isFinished,
-                                                                    setIsFinished,
-                                                                    startTime,
-                                                                    setStartTime,
-                                                                    onBlur,
-                                                                    shouldFocus,
-                                                                    selectedTime,
-                                                                    setTimeLeft,
-                                                                    isTimeManuallySelected,
-                                                                    addChar,
-                                                                    addError
-                                                                }, ref) => {
+interface GameAreaHandle extends InputHandlerHandle {
+    resetLastSpaceIndex: () => void;
+    focus: () => void;
+}
+
+const GameArea = forwardRef<GameAreaHandle, GameAreaProps>(({
+                                                                currentText,
+                                                                currentIndex,
+                                                                typedChars,
+                                                                setTypedChars,
+                                                                extraChars,
+                                                                setExtraChars,
+                                                                isFinished,
+                                                                setIsFinished,
+                                                                startTime,
+                                                                setStartTime,
+                                                                onBlur,
+                                                                shouldFocus,
+                                                                selectedTime,
+                                                                setTimeLeft,
+                                                                isTimeManuallySelected,
+                                                                addChar,
+                                                                addError
+                                                            }, ref) => {
+    const inputRef = useRef<InputHandlerHandle>(null);
+
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            inputRef.current?.focus();
+        },
+        resetLastSpaceIndex: () => {
+            inputRef.current?.resetLastSpaceIndex();
+        }
+    }));
+
+    useEffect(() => {
+        if (shouldFocus) {
+            inputRef.current?.focus();
+        }
+    }, [shouldFocus]);
+
     return (
         <div className={styles.gameArea}>
             <div className={styles.textDisplay}>
@@ -53,7 +75,7 @@ const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
                 />
             </div>
             <InputHandler
-                ref={ref}
+                ref={inputRef}
                 isFinished={isFinished}
                 setIsFinished={setIsFinished}
                 setStartTime={setStartTime}
