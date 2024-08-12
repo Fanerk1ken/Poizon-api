@@ -1,15 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import styles from "./result-screen.module.scss";
 
-const ResultScreen: React.FC = () => {
-    const { errors, wpm } = useSelector((state: RootState) => state.typing);
+interface ResultScreenProps {
+    wpm: number | null;
+    errors: number;
+    onRestart: () => void;
+}
 
+const ResultScreen: React.FC<ResultScreenProps> = ({ wpm, errors, onRestart }) => {
     return (
-        <div>
-            <h2>Поздравляем! Вы закончили текст.</h2>
-            <p>Финальные ошибки: {errors}</p>
-            <p>Финальный WPM: {wpm}</p>
+        <div className={styles.resultScreen}>
+            <h2>Game Over</h2>
+            {wpm !== null && <p>WPM: {wpm}</p>}
+            <p>Errors: {errors}</p>
+            <button onClick={onRestart}>Start Again</button>
         </div>
     );
 };

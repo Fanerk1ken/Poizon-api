@@ -8,7 +8,7 @@ const Statistics: React.FC = () => {
     return (
         <div>
             <p>Errors: {errors}</p>
-            <p>WPM: {wpm}</p>
+            <p>WPM888: {wpm}</p>
         </div>
     );
 };

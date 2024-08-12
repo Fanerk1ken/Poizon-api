@@ -1,4 +1,4 @@
-import React, { forwardRef} from "react";
+import React, { forwardRef } from "react";
 import TextDisplay from "../text-display";
 import InputHandler from "../input-handler";
 import { InputHandlerHandle } from "../../types/input-handler";
@@ -17,6 +17,11 @@ interface GameAreaProps {
     setStartTime: (time: number) => void;
     onBlur: () => void;
     shouldFocus: boolean;
+    selectedTime: number;
+    setTimeLeft: React.Dispatch<React.SetStateAction<number | null>>;
+    isTimeManuallySelected: boolean;
+    addChar: () => void;
+    addError: () => void;
 }
 
 const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
@@ -31,7 +36,12 @@ const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
                                                                     startTime,
                                                                     setStartTime,
                                                                     onBlur,
-                                                                    shouldFocus
+                                                                    shouldFocus,
+                                                                    selectedTime,
+                                                                    setTimeLeft,
+                                                                    isTimeManuallySelected,
+                                                                    addChar,
+                                                                    addError
                                                                 }, ref) => {
     return (
         <div className={styles.gameArea}>
@@ -40,7 +50,6 @@ const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
                     currentText={currentText}
                     currentIndex={currentIndex}
                     typedChars={typedChars}
-                    // extraChars={extraChars}
                 />
             </div>
             <InputHandler
@@ -55,6 +64,11 @@ const GameArea = forwardRef<InputHandlerHandle, GameAreaProps>(({
                 setTypedChars={setTypedChars}
                 extraChars={extraChars}
                 setExtraChars={setExtraChars}
+                selectedTime={selectedTime}
+                setTimeLeft={setTimeLeft}
+                isTimeManuallySelected={isTimeManuallySelected}
+                addChar={addChar}
+                addError={addError}
             />
         </div>
     );
