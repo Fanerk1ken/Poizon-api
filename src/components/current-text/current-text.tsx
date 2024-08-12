@@ -108,6 +108,8 @@ const CurrentText: React.FC = () => {
         fetchRandomWords();
     }, [fetchRandomWords]);
 
+    console.log('test')
+
     useEffect(() => {
         if (startTime && timeLeft !== null) {
             const timer = setInterval(() => {
