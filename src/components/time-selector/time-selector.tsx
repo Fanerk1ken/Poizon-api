@@ -15,7 +15,7 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ onTimeSelect, selectedTime 
                 <button
                     key={time}
                     onClick={() => onTimeSelect(time)}
-                    className={`${styles.timeButton} ${selectedTime === time ? styles.selected : ''}`}
+                    className={`${styles.timeOption} ${selectedTime === time ? styles.active : ''}`}
                 >
                     {time}
                 </button>

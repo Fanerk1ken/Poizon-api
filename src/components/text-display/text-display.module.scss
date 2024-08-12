@@ -1,27 +1,56 @@
-.textStyle {
-  .correct {
-    color: var(--correct-character);
-  }
+.textDisplayWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 144px; // Высота для трех строк (48px * 3)
+  background-color: #323437;
+  overflow: hidden;
+}
 
-  .incorrect {
-    color: var(--incorrect-character);
-  }
+.textDisplayContainer {
+  width: 800px; // Фиксированная ширина контейнера
+  font-family: 'Roboto Mono', monospace;
+  font-size: 24px;
+  line-height: 48px; // Высота строки
+  color: #646669;
+  transition: transform 0.3s ease;
+}
 
-  .current {
-    position: relative;
+.line {
+  text-align: left;
+  white-space: pre;
+  height: 48px;
+  transition: opacity 0.3s ease;
+}
 
-    &::after {
-      content: '|';
-      color: var(--selected-setting);
-      position: absolute;
-      animation: blink 1s infinite;
-      left: -50%;
-    }
+.character {
+  transition: color 0.1s;
+  position: relative;
+}
+
+.correct {
+  color: #d1d0c5;
+}
+
+.incorrect {
+  color: #ca4754;
+}
+
+.current {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1px;
+    height: 100%;
+    width: 2px;
+    background-color: #e2b714;
+    animation: blink 1s infinite;
   }
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
