@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './focus-overlay.module.scss';
 
 interface FocusOverlayProps {
@@ -7,22 +7,6 @@ interface FocusOverlayProps {
 }
 
 const FocusOverlay: React.FC<FocusOverlayProps> = ({ isFocused, onFocus }) => {
-
-
-    useEffect(() => {
-        const handleKeyDown = () => {
-            if (!isFocused) {
-                onFocus();
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isFocused, onFocus]);
-
     if (isFocused) return null;
 
     return (

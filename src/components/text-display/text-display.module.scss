@@ -1,52 +1,46 @@
 .textDisplayWrapper {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.textDisplay {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: left;
+  padding: 20px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 144px; // Высота для трех строк (48px * 3)
-  background-color: #323437;
+  white-space: pre-wrap;
+  word-break: break-word;
   overflow: hidden;
 }
 
-.textDisplayContainer {
-  width: 800px; // Фиксированная ширина контейнера
-  font-family: 'Roboto Mono', monospace;
-  font-size: 24px;
-  line-height: 48px; // Высота строки
-  color: #646669;
-  transition: transform 0.3s ease;
-}
-
 .line {
-  text-align: left;
-  white-space: pre;
-  height: 48px;
-  transition: opacity 0.3s ease;
+  margin-bottom: 0.5rem;
 }
 
 .character {
-  transition: color 0.1s;
+  color: var(--text-color);
   position: relative;
-}
 
-.correct {
-  color: #d1d0c5;
-}
+  &.correct {
+    color: var(--correct-character);
+  }
 
-.incorrect {
-  color: #ca4754;
-}
+  &.incorrect {
+    color: var(--incorrect-character);
+  }
 
-.current {
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -1px;
-    height: 100%;
-    width: 2px;
-    background-color: #e2b714;
-    animation: blink 1s infinite;
+  &.current {
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background-color: var(--selected-setting);
+      animation: blink 0.7s infinite;
+    }
   }
 }
 

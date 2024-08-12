@@ -32,12 +32,9 @@ const typingSlice = createSlice({
             state.currentIndex = 0;
             state.errors = 0;
         },
-        initializeState: (state) => {
-            state.isInitialized = true;
-        },
     },
 });
 
-export const { setCurrentText, setCurrentIndex, addErrors, resetState, initializeState } = typingSlice.actions;
+export const { setCurrentText, setCurrentIndex, addErrors, resetState } = typingSlice.actions;
 
 export default typingSlice.reducer;

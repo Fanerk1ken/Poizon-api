@@ -5,7 +5,6 @@ import {store} from "./app/store.ts";
 import React from "react";
 
 const App: React.FC = () => {
-
   return (
    <Provider store={store}>
        <CurrentText/>
