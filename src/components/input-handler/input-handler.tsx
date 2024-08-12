@@ -15,6 +15,11 @@ interface InputHandlerProps {
     setTypedChars: React.Dispatch<React.SetStateAction<(string | undefined)[]>>;
     extraChars: string[];
     setExtraChars: React.Dispatch<React.SetStateAction<string[]>>;
+    selectedTime: number;
+    setTimeLeft: React.Dispatch<React.SetStateAction<number | null>>;
+    isTimeManuallySelected: boolean;
+    addChar: () => void;
+    addError: () => void;
 }
 
 const InputHandler = forwardRef<InputHandlerHandle, InputHandlerProps>(({
@@ -27,7 +32,12 @@ const InputHandler = forwardRef<InputHandlerHandle, InputHandlerProps>(({
                                                                             typedChars,
                                                                             setTypedChars,
                                                                             extraChars,
-                                                                            setExtraChars
+                                                                            setExtraChars,
+                                                                            selectedTime,
+                                                                            setTimeLeft,
+                                                                            isTimeManuallySelected,
+                                                                            addChar,
+                                                                            addError
                                                                         }, ref) => {
     const dispatch = useDispatch();
     const { currentText, currentIndex } = useSelector((state: RootState) => state.typing);
@@ -53,15 +63,20 @@ const InputHandler = forwardRef<InputHandlerHandle, InputHandlerProps>(({
         if (isFinished) return;
 
         if (!startTime) {
-            setStartTime(Date.now());
+            const now = Date.now();
+            setStartTime(now);
+            if (!isTimeManuallySelected) {
+                setTimeLeft(selectedTime);
+            }
         }
 
-        // Список клавиш, которые не должны считаться ошибками
         const ignoredKeys = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown', 'Insert', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 
         if (ignoredKeys.includes(event.key)) {
             return;
         }
+
+        addChar(); // Добавляем символ при каждом нажатии клавиши
 
         if (event.key === 'Backspace') {
             if (currentIndex > 0) {
@@ -127,17 +142,19 @@ const InputHandler = forwardRef<InputHandlerHandle, InputHandlerProps>(({
 
             if (event.key !== currentChar) {
                 dispatch(addErrors(1));
+                addError(); // Добавляем ошибку для WPM
             }
             dispatch(setCurrentIndex(currentIndex + 1));
         } else {
             setExtraChars([...extraChars, event.key]);
             dispatch(addErrors(1));
+            addError(); // Добавляем ошибку для WPM
         }
 
         if (currentIndex + 1 >= currentText.length) {
             setIsFinished(true);
         }
-    }, [isFinished, startTime, setStartTime, currentIndex, currentText, dispatch, setIsFinished, typedChars, setTypedChars, extraChars, setExtraChars]);
+    }, [isFinished, startTime, setStartTime, currentIndex, currentText, dispatch, setIsFinished, typedChars, setTypedChars, extraChars, setExtraChars, selectedTime, setTimeLeft, isTimeManuallySelected, addChar, addError]);
 
     return (
         <input
