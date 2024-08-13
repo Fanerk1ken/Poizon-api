@@ -1,4 +1,4 @@
-# Text Typing Speed Test
+# Typing Speed Trainer
 
 Упрощенная копия [monkeytype](https:/monkeytype.com)
 
