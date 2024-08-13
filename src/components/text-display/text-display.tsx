@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styles from "./text-display.module.scss";
 
 interface TextDisplayProps {
@@ -9,49 +9,40 @@ interface TextDisplayProps {
 
 const TextDisplay: React.FC<TextDisplayProps> = ({ currentText, typedChars, currentIndex }) => {
     const [visibleLines, setVisibleLines] = useState<string[]>([]);
-    const [startIndex, setStartIndex] = useState(0);
+    const [startLineIndex, setStartLineIndex] = useState(0);
 
-    // Разделение текста на строки по 60 символов в каждой
-    const processText = useCallback(() => {
+    const linesPerPage = 3;
+    const charsPerLine = 60;
+
+    // Разделение текста на строки
+    const allLines = useMemo(() => {
         const lines: string[] = [];
-        let currentLine = '';
-        let charCount = 0;
-
-        for (let i = 0; i < currentText.length; i++) {
-            currentLine += currentText[i];
-            charCount++;
-
-            if (charCount === 60 || i === currentText.length - 1) {
-                lines.push(currentLine);
-                currentLine = '';
-                charCount = 0;
-            }
+        for (let i = 0; i < currentText.length; i += charsPerLine) {
+            lines.push(currentText.slice(i, i + charsPerLine));
         }
-
         return lines;
     }, [currentText]);
 
-    // Инициализация видимых линий
-    useEffect(() => {
-        const allLines = processText();
-        setVisibleLines(allLines.slice(0, 3));
-        setStartIndex(0);
-    }, [currentText, processText]);
+    // Обновление видимых линий
+    const updateVisibleLines = useCallback(() => {
+        const currentLineIndex = Math.floor(currentIndex / charsPerLine);
+        let newStartLineIndex = Math.max(0, currentLineIndex - 1);
 
-    // Обновление видимых линий по мере ввода пользователем текста
-    useEffect(() => {
-        const allLines = processText();
-        const currentLineIndex = Math.floor(currentIndex / 60);
+        // Убедимся, что у нас всегда есть как минимум linesPerPage строк для отображения
+        newStartLineIndex = Math.min(newStartLineIndex, allLines.length - linesPerPage);
 
-        if (currentLineIndex > 0 && currentLineIndex !== startIndex) {
-            setStartIndex(currentLineIndex - 1);
-            setVisibleLines(allLines.slice(currentLineIndex - 1, currentLineIndex + 2));
-        }
-    }, [currentIndex, processText, startIndex]);
+        setStartLineIndex(newStartLineIndex);
+        setVisibleLines(allLines.slice(newStartLineIndex, newStartLineIndex + linesPerPage));
+    }, [currentIndex, allLines]);
+
+    // Эффект для обновления видимых линий при изменении currentIndex
+    useEffect(() => {
+        updateVisibleLines();
+    }, [currentIndex, updateVisibleLines]);
 
     // Отрисовка символов с соответствующей стилизацией
     const renderChar = (char: string, lineIndex: number, charIndex: number) => {
-        const globalIndex = startIndex * 60 + lineIndex * 60 + charIndex;
+        const globalIndex = (startLineIndex + lineIndex) * charsPerLine + charIndex;
         let className = styles.character;
         if (globalIndex < currentIndex) {
             className += typedChars[globalIndex] === char ? ` ${styles.correct}` : ` ${styles.incorrect}`;
@@ -69,7 +60,7 @@ const TextDisplay: React.FC<TextDisplayProps> = ({ currentText, typedChars, curr
         <div className={styles.textDisplayWrapper}>
             <div className={styles.textDisplayContainer}>
                 {visibleLines.map((line, lineIndex) => (
-                    <div key={startIndex + lineIndex} className={styles.line}>
+                    <div key={startLineIndex + lineIndex} className={styles.line}>
                         {line.split('').map((char, charIndex) => renderChar(char, lineIndex, charIndex))}
                     </div>
                 ))}
