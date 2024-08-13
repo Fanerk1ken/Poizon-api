@@ -1,6 +1,6 @@
 # Typing Speed Trainer
 
-Упрощенная копия [monkeytype]((https://monkeytype.com/))
+Упрощенная копия [monkeytype](https://monkeytype.com/)
 
 ## Основной стек проекта
 
