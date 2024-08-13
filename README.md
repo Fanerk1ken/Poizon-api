@@ -20,4 +20,4 @@
 
 ## Deployment
 
-[Dropwizard](http://www.dropwizard.io/1.0.2/docs/)
+[Мой деплой](https://poizon-api-a3m5.vercel.app/)
