@@ -42,6 +42,11 @@
     font-size: 1.5rem;
     margin-top: 1rem;
     color: var(--selected-setting);
+    transition: opacity 0.3s ease;
+}
+
+.timerHidden {
+    opacity: 0;
 }
 
 .restartButton {

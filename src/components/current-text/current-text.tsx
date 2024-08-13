@@ -131,6 +131,9 @@ const CurrentText: React.FC = () => {
             <div className={styles.contentArea}>
                 {!isFinished ? (
                     <div className={styles.gameAreaWrapper}>
+                        <div className={`${styles.timer} ${timeLeft === null ? styles.timerHidden : ''}`}>
+                            {timeLeft !== null ? timeLeft : '00'}
+                        </div>
                         <GameArea
                             ref={gameAreaRef}
                             currentText={currentText}
@@ -151,8 +154,6 @@ const CurrentText: React.FC = () => {
                             addChar={addChar}
                             addError={addError}
                         />
-                        <div className={styles.timer}>{timeLeft !== null ? `${timeLeft}` : ''}</div>
-
                         <FocusOverlay isFocused={isFocused} onFocus={handleFocus}/>
                     </div>
                 ) : (
