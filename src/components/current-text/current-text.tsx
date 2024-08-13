@@ -125,12 +125,15 @@ const CurrentText: React.FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1 className={styles.title}>Typing Speed by Nikandrov Egor</h1>
+                <h1 className={styles.title}>Typing Speed Trainer</h1>
                 <TimeSelector onTimeSelect={handleTimeSelect} selectedTime={selectedTime}/>
             </div>
             <div className={styles.contentArea}>
                 {!isFinished ? (
                     <div className={styles.gameAreaWrapper}>
+                        <div className={`${styles.timer} ${timeLeft === null ? styles.timerHidden : ''}`}>
+                            {timeLeft !== null ? timeLeft : '00'}
+                        </div>
                         <GameArea
                             ref={gameAreaRef}
                             currentText={currentText}
@@ -151,8 +154,6 @@ const CurrentText: React.FC = () => {
                             addChar={addChar}
                             addError={addError}
                         />
-                        <div className={styles.timer}>{timeLeft !== null ? `${timeLeft}` : ''}</div>
-
                         <FocusOverlay isFocused={isFocused} onFocus={handleFocus}/>
                     </div>
                 ) : (
