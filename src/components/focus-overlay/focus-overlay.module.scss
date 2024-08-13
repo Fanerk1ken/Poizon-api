@@ -13,10 +13,14 @@
 }
 
 .message {
-  background-color: var(--settings-bar);
-  color: var(--selected-setting);
+  color: var(--correct-character);
   padding: 20px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 32px;
   cursor: pointer;
+}
+
+.cursorIcon {
+    font-size: 32px;
+    color: var(--correct-character);
 }

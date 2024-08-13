@@ -10,6 +10,8 @@ import axios from 'axios';
 import { InputHandlerHandle } from "../../types/input-handler";
 import { useWPM } from '../../hooks/useWPM';
 import FocusOverlay from "../focus-overlay";
+import { IoRefreshOutline as RefreshIcon} from "react-icons/io5";
+import Footer from "../footer";
 
 const CurrentText: React.FC = () => {
     const dispatch = useDispatch();
@@ -124,7 +126,7 @@ const CurrentText: React.FC = () => {
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Typing Speed by Nikandrov Egor</h1>
-                <TimeSelector onTimeSelect={handleTimeSelect} selectedTime={selectedTime} />
+                <TimeSelector onTimeSelect={handleTimeSelect} selectedTime={selectedTime}/>
             </div>
             <div className={styles.contentArea}>
                 {!isFinished ? (
@@ -150,13 +152,8 @@ const CurrentText: React.FC = () => {
                             addError={addError}
                         />
                         <div className={styles.timer}>{timeLeft !== null ? `${timeLeft}` : ''}</div>
-                        <button
-                            className={styles.restartButton}
-                            onClick={startNewGame}
-                        >
-                            Restart
-                        </button>
-                        <FocusOverlay isFocused={isFocused} onFocus={handleFocus} />
+
+                        <FocusOverlay isFocused={isFocused} onFocus={handleFocus}/>
                     </div>
                 ) : (
                     <ResultScreen
@@ -166,11 +163,13 @@ const CurrentText: React.FC = () => {
                     />
                 )}
             </div>
-            <div className={styles.footer}>
-                <a href="https://github.com/Fanerk1ken" target="_blank" className={styles.link}>Git</a>
-                <a href="https://t.me/faner1k" target="_blank" className={styles.link}>Telegram</a>
-                <a href="https://drive.google.com/file/d/15cTUGU-yFiK9uuhDlOzxNucBNQ3_VMgm/view?usp=sharing" target="_blank" className={styles.link}>CV</a>
-            </div>
+            <button
+                className={styles.restartButton}
+                onClick={startNewGame}
+            >
+                <RefreshIcon />
+            </button>
+            <Footer />
         </div>
     );
 };
