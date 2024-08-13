@@ -1,4 +1,4 @@
-.timeSelector {
+.timeSelectorContainer {
   display: flex;
   gap: 0.5rem;
 }
@@ -17,4 +17,10 @@
   &:hover {
     color: var(--correct-character);
   }
+}
+
+.clockIcon {
+  width: 20px;
+  height: 24px;
+  margin: auto 0;
 }

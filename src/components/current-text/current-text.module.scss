@@ -48,7 +48,7 @@
     display: block;
     margin: 1rem auto 0;
     background-color: var(--selected-setting);
-    color: #323437;
+    color: var(--bg-color);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -61,18 +61,3 @@
     }
 }
 
-.footer {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-}
-
-.link {
-    color: var(--text-color);
-    text-decoration: none;
-
-    &:hover {
-        color: var(--a-hover);
-    }
-}

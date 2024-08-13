@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './time-selector.module.scss';
+import { FaClock } from 'react-icons/fa';
 
 interface TimeSelectorProps {
     onTimeSelect: (time: number) => void;
@@ -11,6 +12,7 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ onTimeSelect, selectedTime 
 
     return (
         <div className={styles.timeSelectorContainer}>
+            <FaClock className={styles.clockIcon} />
             {timeOptions.map(time => (
                 <button
                     key={time}
